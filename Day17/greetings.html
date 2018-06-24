@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>根据系统时间生成问候语</title>
+</head>
+<body>
+    <button id="time">点击这里</button>
+    <p id="demo"></p>
+    <script>
+        document.getElementById("time").onclick = function(){
+            var x ="";
+            var time = new Date().getHours();
+            if(time<20){
+                x = "Good Day! Nice to see you!";
+            }
+            else{
+                x = "Good evening! Go to bed early is good for your health!"
+            }
+            document.getElementById("demo").innerHTML = x;
+        }
+    </script>
+</body>
+</html>

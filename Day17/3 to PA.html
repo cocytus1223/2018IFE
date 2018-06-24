@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>判断3的倍数或者含3</title>
+</head>
+<body>
+    <script>
+        function judgeThree(){
+            var num = new Array();
+            for(var i=0;i<100;i++){
+                num[i] = i+1;
+            }
+            for(var i=0;i<num.length;i++){
+                if(num[i]%3 == 0 || (num[i].toString()).indexOf('3') ==1){
+                    num[i] = 'PA';
+                }
+            }
+            console.log(num.join());
+        }
+        judgeThree();
+    </script>
+</body>
+</html>
