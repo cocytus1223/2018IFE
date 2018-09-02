@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+    <style>
+        #erik {
+            background-image: url("erik.jpg");
+            width: 480px;
+            height: 480px;
+            
+        }
+    
+    </style>
+
+</head>
+<body>   
+    <button>kaishi</button>
+    <div id="erik" >
+        
+    </div>
+    <script>
+        var erik = document.getElementById("erik");
+        var btn = document.querySelector('button');
+        var h = 0 ;
+        var count = 1;
+        
+        function change() {
+            
+            if(h < 8160){
+                h = count * 480;
+                erik.style.backgroundPositionY = h +"px";
+                console.log(h);
+                count++;
+                setTimeout(change, 100);   
+            }else {
+                h = 0;
+                count = 1;
+                console.log("ni")
+                setTimeout(change, 100);  
+            }   
+        }
+        btn.onclick = function(){change};
+      
+    </script>
+</body>
+</html>
