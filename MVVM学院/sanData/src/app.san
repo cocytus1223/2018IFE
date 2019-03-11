@@ -1,0 +1,72 @@
+<template>
+    <div id='root'>
+        <div class='input-box'>
+            <input value='{= name =}' placeholder='姓名(String)'/>
+            <input value='{= age =}' type='number' min='1' placeholder='年龄(Number)'/>
+            <input value='{= desc =}' placeholder='简介(String)'/>
+            <input id='clearBtn'on-click='clearData' type='button' value='reset'/>
+        </div>
+        <div>
+            <span>信息：</span>
+        </div>
+        <div class='display'>
+            <span>姓名 {{name}}</span>
+            <span>年龄 {{age}}</span>
+            <span>简介 {{desc}}</span>
+        </div>
+    </div>
+
+</template>
+
+<script>
+    import san, {DataTypes} from 'san';
+    export default {
+        initData() {
+            return {
+                name: '',
+                age: '',
+                desc: ''
+            }
+        },
+        //清除数据
+        clearData() {
+            this.data.set('name','');
+            this.data.set('age','');
+            this.data.set('desc','');
+        }
+    }
+
+</script>
+
+<style>
+    span {
+        font-size: 16px;
+    }
+    #root {
+        width: 600px;
+        margin: 10px auto 0 auto;
+        padding: 5px;
+        background-color: #f1f1f1;
+    }
+    #root div{
+        margin-top: 5px;   
+    }
+    #clearBtn {
+        background-color: #fff;
+        width: 50px;
+        border: 0;
+        outline: 0;
+    }
+    #clearBtn:hover{
+        background-color: #ccc;
+    }
+    #clearBtn:active{
+        background-color: #aaa;
+    }
+    .input-box input {
+        padding: 3px;
+    }
+    .display span {
+        display: block;
+    }
+</style>
