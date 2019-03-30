@@ -1,0 +1,40 @@
+<template>
+  <li on-mouseover="onListDisplay($event)" on-mouseout="onListDisplay($event)">
+    {{ label }}
+    <slot var-show="show"></slot>
+  </li>
+</template>
+
+<script>
+import PanelList from './PanelList.san';
+export default {
+  components: {
+    'list': PanelList,
+  },
+  initData() {
+    return {
+      show: false,
+    }
+  },
+  onListDisplay(e) {
+    this.data.set('show', !this.data.get('show'));
+    // e.stopPropagation();
+  }
+}
+</script>
+
+<style scoped>
+  ul, li {
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    padding: 10px;
+    color: #757575;
+    border-bottom: 1px solid #f9f9f9;
+    cursor: pointer;
+  }
+  li:hover {
+    background: #f9f9f9;
+  }
+</style>

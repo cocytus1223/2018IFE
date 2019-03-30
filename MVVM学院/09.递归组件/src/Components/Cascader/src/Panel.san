@@ -1,0 +1,53 @@
+<template>
+  <div class="cascader-panel">
+    <list san-transition="showList" s-if="showList" items="{{options}}">
+    </list>
+  </div>
+</template>
+
+<script>
+import PanelList from './PanelList.san';
+export default {
+  components: {
+    'list': PanelList,
+  },
+  transition: {
+    enter(el, done) {
+      done();
+    },
+    leave(el, done) {
+      done();
+    },
+  },
+  initData() {
+    return {
+      options: undefined,
+      'showList': false,
+    }
+  },
+  attached() {
+    this.data.set('showList', true);
+  },
+  showList() {
+    return {
+      enter(el, done) {
+        done();
+      },
+      leave(el, done) {
+        done();
+      },
+    }
+  },
+}
+</script>
+
+<style scoped>
+.cascader-panel {
+  transition: all 0.2s linear;
+  position: absolute;
+  left: 0;
+  top: 115%;
+  border-radius: 4px;
+  display: inline-block;
+}
+</style>

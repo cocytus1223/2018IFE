@@ -1,0 +1,55 @@
+<template>
+  <ul class="cascader-list">
+      <list-item 
+        s-for="item in items" 
+        label="{{ item.label }}" 
+        children="{{ item.children }}">
+        <list s-if="show" items="{{ item.children }}"></list>
+      </list-item>
+  </ul>
+</template>
+
+<script>
+import PanelListItem from './PanelListItem.san'
+export default {
+  components: {
+    'list': 'self',
+    'list-item': PanelListItem,
+  },
+  initData() {
+    return {
+      items: undefined,
+    }
+  },
+  inited() {
+    console.log(this.data.get('items'));
+  },
+}
+</script>
+
+<style scoped>
+  ul, li {
+    margin: 0;
+    padding: 0;
+  }
+  ul {
+    list-style: none;
+    background: white;
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 200px;
+    border-radius: 4px;
+    position: absolute;
+    left: 100%;
+    top: 0;
+  }
+  li {
+    padding: 10px;
+    color: #757575;
+    border-bottom: 1px solid #f9f9f9;
+    cursor: pointer;
+  }
+  li:hover {
+    background: #f9f9f9;
+  }
+</style>

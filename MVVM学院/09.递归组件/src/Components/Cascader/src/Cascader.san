@@ -1,0 +1,70 @@
+<template>
+  <div class="cascader">
+    <input placeholder="Please choose..." on-click="toggle" readonly />
+    <span class="indicator"></span>
+  </div>
+</template>
+
+<script>
+import Panel from './Panel.san'
+export default {
+  initData() {
+    return {
+      toggle: false,
+      options: undefined,
+    }
+  },
+  attached() {
+    this.toggle();
+  },
+  toggle() {
+    if (this.data.get('toggle') === false && !this.panel) {
+      this.panel = new Panel();
+      this.panel.data.set('options', this.data.get('options'));
+      this.panel.attach(this.el);
+    }
+    
+    if (this.data.get('toggle') === true) {
+      this.panel.dispose();
+      delete this.panel;
+    }
+
+    this.data.set('toggle', !this.data.get('toggle'));
+  },
+}
+</script>
+
+<style scoped>
+.cascader {
+  position: relative;
+  display: inline-block;
+}
+
+input {
+  font-size: 1.2rem;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #b5b5b5;
+  padding: 10px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input:focus {
+  outline: none;
+}
+
+.indicator {
+  border-left: 2px solid #b5b5b5;
+  border-bottom: 2px solid #b5b5b5;
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  box-sizing: border-box;
+  transform: rotate(-45deg);
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  cursor: pointer;
+}
+</style>
