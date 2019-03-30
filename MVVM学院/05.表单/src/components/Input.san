@@ -1,0 +1,139 @@
+<template>
+  <div class="input">
+    <input
+      class="{{isValid ? '' : 'invalid'}}"
+      placeholder="{{ placeholder }}"
+      disabled="{{ disabled }}" 
+      readonly="{{ readonly }}"
+      on-input="handleInput($event)"
+      on-focus="handleFocus($event)"
+      on-blur="handleBlur($event)"
+      value="{= value =}" />
+    <span s-if="!isValid" class="alert">{{ alert }}</span>
+    <span s-if="isNotValidAndIsFocused" class="instruction">{{ instruction }}</span>
+  </div>
+</template>
+<script>
+  export default {
+    initData() {
+      return {
+        placeholder: undefined, // @placeholder, type:string, default:undefined
+        disabled: false, // @disabled, type:boolean, default:false
+        readonly: false, // @readonly, type:boolean, default:false
+        value: undefined, // @value, type:string, default:undefined
+        validate: undefined, // @validate, type:string, default:undefined
+        isValid: true, // @isValid, type:boolean, default:true, if user input is valid
+        alert: undefined, // @alert, type:string, default:undefined
+        isFocused: false, // @isFocused, type:boolean, default:false
+        isNotValidAndIsFocused: false, // !isValid && isFocused
+        instruction: undefined, // @instruction, type:string, default:undefined
+      }
+    },
+    inited() {
+      
+    },
+    // What happens when Input
+    handleInput(msg) {
+      // return event
+      this.fire('input', msg);
+    },
+    // What happens when Focus
+    handleFocus(msg) {
+      // return event
+      this.fire('focus', msg);
+      this.data.set('isFocused', true);
+      this.data.set('isNotValidAndIsFocused', this.data.get('isFocused') && !this.data.get('isValid'));
+    },
+    // What happens when Blur
+    handleBlur(msg) {
+      // return event
+      this.fire('blur', msg);
+      this.data.set('isFocused', false);
+      this.data.set('isNotValidAndIsFocused', this.data.get('isFocused') && !this.data.get('isValid'));
+      // if input text is empty, do not prompt
+      if (this.data.get('value') === "" || this.data.get('value') === undefined) {
+        this.data.set('isValid', true);
+        this.data.set('isNotValidAndIsFocused', this.data.get('isFocused') && !this.data.get('isValid'));
+        return;
+      }
+      if (this.data.get('validate') !== undefined) {
+        // reset valid value
+        this.data.set('isValid', true);
+        this.data.set('isNotValidAndIsFocused', this.data.get('isFocused') && !this.data.get('isValid'));
+        // if variable `validate` is defined, start to validate user input
+        const validate_str = this.data.get('validate');
+        const user_input = this.data.get('value');
+        switch (validate_str.toLowerCase()) {
+          // if validate="email"
+          case 'email':
+            if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(user_input)){
+              this.data.set('isValid', false);
+              this.data.set('isNotValidAndIsFocused', this.data.get('isFocused') && !this.data.get('isValid'));
+              this.data.set('alert', '请输入正确的邮箱！');
+              this.data.set('instruction', '电子邮箱一般格式为：mailname@mailaddress.com');
+            }
+            break;
+        }
+      }
+    }
+  }
+</script>
+<style scoped>
+  .input {
+    position: relative;
+  }
+
+  input {
+    -webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+    -moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
+    box-sizing: border-box;
+    font-family : inherit; /* set the font-family to be smae as the page */
+    font-size: 1rem;
+    padding: 8px;
+    border: 1px solid #ccc;
+    transition: 0.3s all;
+    color: #5b5b5b;
+    width: 100%;
+    display: inline-block;
+  }
+
+  input:hover {
+    border: 1px solid #7f7f7f;
+  }
+
+  input:focus {
+    /* remove default Apple OS X blue outline */
+    outline: none;
+    border: 1px solid #7f7f7f;
+  }
+
+  input::placeholder {
+    color: #ccc;
+  }
+
+  input:disabled {
+    background: #f7f7f7;
+  }
+
+  .invalid {
+    border-color: #d66666;
+  }
+
+  .alert {
+    color: #d66666;
+    display: inline-block;
+  }
+
+  .instruction {
+    position: absolute;
+    bottom: 100%;
+    width: 66%;
+    left: 0;
+    background: #fff2f2;
+    color: #d66666;
+    font-size: 0.8rem;
+    box-sizing: border-box;
+    padding: 8px;
+    opacity: 0.9;
+  }
+</style>

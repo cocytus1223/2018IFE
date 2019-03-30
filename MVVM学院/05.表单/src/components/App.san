@@ -1,0 +1,85 @@
+<template>
+  <div class="container">
+    <div class="panel">
+      <h2>表单实现Input、Checkbox组件</h2>
+      <hr>
+      <h3>1. &lt;san-input&gt; 输入框</h3>
+      <san-input
+        value="{{ value }}"
+        placeholder="请输入用户名"
+        on-input="handleInput($event)"
+      ></san-input>
+      <san-input
+        value="{{ value }}"
+        placeholder="请输入邮箱"
+        validate="email"
+      ></san-input>
+      <san-input
+        value="{{ value }}"
+        placeholder="不可输入区域"
+        disabled
+      ></san-input>
+      <san-input
+        value="这里是只读区域"
+        readonly
+      ></san-input>
+      <hr>
+      <h3>2. &lt;san-checkbox&gt; 复选框</h3>
+      <san-checkbox id="name" text="这里是父级多选框"></san-checkbox>
+      <san-checkbox id="dishes" text="选择食材" s-ref="checkbox">
+        <san-checkbox id="dishes_chicken" text="鸡肉"></san-checkbox>
+        <san-checkbox id="dishes_pork" text="猪肉"></san-checkbox>
+        <san-checkbox id="dishes_fish" text="鱼肉">
+          <san-checkbox id="dishes_fish1" text="鲫鱼"></san-checkbox>
+          <san-checkbox id="dishes_fish2" text="鲤鱼"></san-checkbox>
+          <san-checkbox id="dishes_fish3" text="鲶鱼"></san-checkbox>
+        </san-checkbox>
+        <san-checkbox id="dishes_vegatable" text="蔬菜"></san-checkbox>
+      </san-checkbox>
+      <san-checkbox id="name2" disabled text="不可以点选">
+        <san-checkbox id="name3" text="可以点选"></san-checkbox>
+        <san-checkbox id="name4" text="可以点选"></san-checkbox>
+      </san-checkbox>
+    </div>
+  </div>
+</template>
+<script>
+  import {DataTypes} from "san";
+  import Input from "./Input.san";
+  import Checkbox from "./Checkbox.san";
+  export default {
+    components: {
+      'san-input': Input,
+      'san-checkbox': Checkbox,
+    },
+    initData() {
+      return {
+      }
+    },
+    dataTypes: {
+    },
+    handleInput(msg) {
+      console.log(msg);
+    },
+  }
+</script>
+<style>
+  .panel {
+    background: #fff;
+    border: #e5e5e5 1px solid;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  @media (min-width: 768px) {
+    .panel {
+      width: 60%;
+      margin: 0 auto;
+    }
+    .panel > .input {
+      width: 400px;
+    }
+  }
+  .panel > .input {
+    margin: 35px 0;
+  }
+</style>
