@@ -1,0 +1,105 @@
+<template>
+  <div class="my-panel {{ isShown ? 'state-open' : '' }}">
+    <div class="my-panel-heading">
+      <h3 class="my-panel-title"><slot name="title">{{ title }}</slot></h3>
+      <button on-click="toggle">
+        <span>{{ isShown ? 'Hide' : 'Show' }}</span>
+      </button>
+    </div>
+    <div class="my-panel-content" s-if="isShown" s-transition="toggleTrans"><slot></slot></div>
+  </div>
+</template>
+
+<script>
+export default {
+  initData () {
+    return {
+      title: undefined,
+      isShown: false,
+    }
+  },
+  toggle() {
+    this.data.set('isShown', !this.data.get('isShown'));
+  },
+  toggleTrans() {
+    return {
+      enter(el, done) {
+        el.style.height = 0;
+        setTimeout(
+          ()=> {
+            el.style.height = el.scrollHeight + 'px';
+            console.log(el.scrollHeight);
+            }, 4);
+        el.addEventListener('transitionend', ()=> {
+          el.style.opacity = 1;
+          done();
+        });
+      },
+      leave(el, done) {
+        console.log(0);
+        el.style.opacity = 0;
+        let l1 = el.addEventListener('transitionend', ()=> {
+          el.style.opacity = 0;
+          el.style.height = 0;
+          el.addEventListener('transitionend', ()=> {
+            done();
+          });
+        });
+      }
+    }
+  },
+  // 组件生命周期
+  compiled() {console.log('compiled')},
+  inited() {console.log('inited')},
+  created() {console.log('created')},
+  attached() {console.log('attached')},
+  detached() {console.log('detached')},
+  disposed() {console.log('disposed')},
+}
+</script>
+
+<style scoped>
+.my-panel {
+  border: 1px solid #c3c3c3;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+.my-panel-heading {
+  min-height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.my-panel-title {
+  flex: 0 0 auto;
+}
+.my-panel-content {
+  transition: all 0.15s ease-in-out;
+  opacity: 0;
+  padding-bottom: 20px;
+}
+button {
+  width: 45px;
+  height: 45px;
+  display: inline-flex;
+  box-sizing: border-box;
+  background: none;
+  border: none;
+  transition: 0.25s all ease-in-out;
+  border-radius: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+button:focus {
+  outline: none;
+}
+button:hover {
+  cursor: pointer;
+  background: #efefef;
+}
+button span {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+</style>

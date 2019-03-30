@@ -1,0 +1,61 @@
+<template>
+  <div class="container">
+    <div class="panel">
+      <h2>组件实现加生命周期</h2>
+      <hr>
+      <h3>san-mui expansionpanel组件</h3>
+      <panel title="这是san-mui的官方expansionpanel组件">
+        这是一个panel.
+      </panel>
+      <h3>自制组件</h3>
+      <mypanel title="这是panel的标题">
+        这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.这是一个panel.
+      </mypanel>
+    </div>
+  </div>
+</template>
+<script>
+  import {DataTypes} from "san";
+  // san-mui extension panel
+  import ExpansionPanel from 'san-mui/lib/ExpansionPanel';
+  // contributed panel
+  import MyPanel from './MyPanel';
+  export default {
+    components: {
+      'panel': ExpansionPanel,
+      'mypanel': MyPanel,
+    },
+    initData() {
+      return {
+      }
+    },
+    dataTypes: {
+    },
+    handleInput(msg) {
+      console.log(msg);
+    },
+    inited() {
+      console.log(ExpansionPanel);
+    }
+  }
+</script>
+<style>
+  .panel {
+    background: #fff;
+    border: #e5e5e5 1px solid;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  @media (min-width: 768px) {
+    .panel {
+      width: 60%;
+      margin: 0 auto;
+    }
+    .panel > .input {
+      width: 400px;
+    }
+  }
+  .panel > .input {
+    margin: 35px 0;
+  }
+</style>
