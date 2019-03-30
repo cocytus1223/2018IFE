@@ -1,0 +1,94 @@
+<template>
+    <template>
+        <h1>任务栏</h1>
+        <task-menu class="task-menu-content" data="{{ list }}" title="未定义的标题">
+            <a slot="content">{{menu.content}}</a>
+            <b slot="time">{{menu.content}}</b>
+        </task-menu>
+    </template>
+</template>
+
+<script>
+    import MENU from "./task-menu.san";
+    export default {
+        components: {
+            "task-menu": MENU
+        },
+        initData () {
+            return {
+                list: [
+                    {
+                        // title: "标题一",
+                        data: [
+                            { type: "content", name: "内容", content: "没有标题属性时使用传入的属性" },
+                            { type: "time", name: "事件", content: "2019-03-12" },
+                        ]
+
+                    },
+                    {
+                        title: "标题二",
+                        data: [
+                            { type: "content", name: "内容", content: "lalalalalalal" },
+                            { type: "time", name: "事件", content: "2019-03-13" },
+                        ]
+
+                    },
+                    {
+                        title: "标题三",
+                        data: [
+                            { type: "content", name: "内容", content: "lalalalalalal" },
+                            { type: "time", name: "事件", content: "2019-03-23" },
+                        ]
+
+                    },
+                    {
+                        title: "标题四",
+                        data: [
+                            { type: "content", name: "自定义1", content: "根据" },
+                            { type: "time", name: "根据", content: "2019-03-25" },
+                        ]
+
+                    },
+                    {
+                        title: "标题五",
+                        data: [
+                            { type: "content", name: "自定义2", content: "数据" },
+                            { type: "time", name: "数据", content: "2019-03-28" },
+                        ]
+
+                    },
+                    {
+                        title: "标题六",
+                        data: [
+                            { type: "content", name: "自定义3", content: "生成" },
+                            { type: "time", name: "生成", content: "2019-4-20" },
+                        ]
+
+                    },
+                    {
+                        title: "标题七",
+                        data: [
+                            { type: "content", name: "内容", content: "lalalalalalal" },
+                            { type: "time", name: "事件", content: "2019-04-28" },
+                        ]
+                    },
+                ]
+            }
+        }
+    }
+</script>
+
+<style>
+    h1 {
+        font-size: 50px;
+        text-align: center;
+    }
+
+    .task-menu-content {
+        display: flex;
+        width: 960px;
+        margin: 0 auto;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+</style>
