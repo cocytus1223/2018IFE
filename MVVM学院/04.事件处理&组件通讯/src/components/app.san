@@ -1,0 +1,36 @@
+<template>
+    <div class="wrapper">
+        <father></father>
+        <div class="text">
+            我是更高层的父组件：{{msg}}
+        </div>
+    </div>
+</template>
+
+<script>
+import son from './son.san'
+import father from './father.san'
+export default {
+    components: {
+        son,
+        father
+    },
+    initData() {
+        return {
+            msg: '我也静静等待用户输入'
+        }
+    },
+    messages: {
+        'toGrandFather': function(arg) {
+            this.data.set('msg', arg.value)
+        }
+    }
+}
+</script>
+
+<style lang="stylus">
+.wrapper
+    .text
+        font-size: 15px
+        color: rgb(200,20,200)
+</style>

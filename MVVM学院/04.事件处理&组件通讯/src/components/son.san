@@ -1,0 +1,35 @@
+<template>
+	<div class="son">
+		<span>子组件：</span>
+    <input type="text" value="{= msg =}">
+    <button on-click="clicker">通知父组件</button>
+	</div>
+</template>
+
+<script type="text/javascript">
+	export default {
+		initData() {
+			return {
+				msg: ''
+			}
+		},
+		clicker() {
+		    // 向上派发两个消息，一个给父组件，一个给更高层组件		    	
+			this.dispatch('toFather' ,this.data.get('msg'));
+			this.dispatch('toGrandFather', this.data.get('msg'));
+			console.log(this.data.get('msg'))
+
+			/*****还可以通过派发事件通知父组件******/
+			// this.fire('changeVal',this.data.get('msg'))		
+		}
+	}
+</script>
+
+<style lang="stylus">
+.son
+  display: inline-block;
+  font-size: 14px;
+  button
+    margin-left: 5px;
+    vertical-align: bottom;
+</style>

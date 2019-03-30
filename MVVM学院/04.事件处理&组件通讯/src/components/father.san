@@ -1,0 +1,39 @@
+<template>
+  <div class="father">
+    <son></son>
+    <div class="text">我是父组件：{{val}}</div>
+</template>
+
+<script>
+import son from './son.san'
+export default {
+  components: {
+    son
+  },
+  initData() {
+    return {
+      val: '静静等待用户输入'
+    }
+  },
+  // message接受子组件派发出的消息，message是一个对象，key是消息名称，value是处理消息的函数
+  messages: {
+    'toFather': function(arg) {
+      	// arg.target可以拿到派发消息的组件
+				// art.value可以拿到派发消息的值
+      this.data.set('val', arg.value)
+    }
+  },
+
+  change(val) {
+    this.data.set('val', val)
+  }
+}
+</script>
+
+<style lang="stylus">
+.father
+  .text
+    margin: 10px 0;
+    font-size: 14px;
+    color: lightgreen;
+</style>
