@@ -1,0 +1,66 @@
+<template>
+    <div class="wrapper">
+        <button class="btn" on-click="addPerson">添加</button>
+        <table>
+            <tr>
+                <th>姓名</th>
+                <th>审核状态</th>
+                <th>操作</th>
+            </tr>
+            <tr s-for="p, index in persons">
+                <td>{{p.name}}</td>
+                <td s-if="p.status">{{p.status}}</td>
+                <td s-else>待审核</td>
+                <td>
+                    <button s-if="p.status" on-click="delPerson(index)">删除</button>
+                    <button s-else on-click="check(index)">审核</button>
+                </td>
+            </tr>
+        </table>
+    <div>
+</template>
+
+<script>
+export default {
+    initData(){
+        return {
+            persons: [
+                {name: '张三', status: '合格'},
+                {name: '李四', status: '不合格'},
+                {name: '王五', status: ''},
+                {name: '赵六', status: ''},
+                {name: '孙七', status: ''}
+            ]
+        }
+    },
+    addPerson() {
+        this.data.push('persons', {name: '姓名', status: ''})
+    },
+    check(index) {
+        this.data.set(`persons[${index}].status`, '合格')
+    },
+    delPerson(index) {
+        this.data.removeAt('persons', index)
+    }
+}
+</script>
+
+<style lang="stylus">
+  .wrapper
+    .btn
+      font-size: 14px
+      background: rgb(220,220,220)
+      border: 1px solid rgb(180,180,180)
+    table      
+      width: 200px
+      margin-top: 10px
+      border-collapse: collapse
+      tr
+        th,td
+         text-align: center
+         border: 1px solid #ddd
+         button
+           font-size: 14px;
+           background: rgb(230,230,230);
+           border: 1px solid rgb(180,180,180)
+</style>
